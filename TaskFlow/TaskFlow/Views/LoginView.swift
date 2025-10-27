@@ -1,19 +1,18 @@
 //
-//  HomeView.swift
+//  LoginView.swift
 //  TaskFlow
 //
-//  Created by İlknur Tulgar on 24.10.2025.
+//  Created by İlknur Tulgar on 27.10.2025.
 //
 
 import SwiftUI
 
-struct HomeView: View {
-    
+struct LoginView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    HomeView()
+    LoginView()
 }
