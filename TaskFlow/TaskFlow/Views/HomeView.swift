@@ -17,14 +17,15 @@ struct HomeView: View {
                 Text("TaskFlow")
                     .font(.largeTitle.bold())
                 
-                Text("Task Summary")
+                Text("General Summary")
                     .font(.headline)
                 
                 ScrollView(.horizontal,showsIndicators: false){
                     HStack{
-                        ForEach(model.tasksSummary){summary in
-                            SummaryCard(title: summary.status,count: summary.count)
-                        }
+                        SummaryCard(title: "Pending",count: model.pendingCount)
+                        SummaryCard(title: "Active",count: model.activeCount)
+                        SummaryCard(title: "Completed",count: model.completedCount)
+                        SummaryCard(title: "Work Time",count: model.workHours)
                     }
                 }
                 Divider()
@@ -47,7 +48,24 @@ struct HomeView: View {
                     }
                     
                 }
+                .padding(.top,8)
                 Spacer()
+                
+                Button{
+                    model.showNewTaskView = true
+                }label: {
+                    Label("New Task",systemImage: "plus.circle.fill")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .backgroundColor(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                }
+                .padding(.horizontal)
+                .sheet(isPresented: $model.showNewTaskView){
+                    NewTaskView()
+                }
             }
             .padding()
             .navigationBarBackButtonHidden(true)
