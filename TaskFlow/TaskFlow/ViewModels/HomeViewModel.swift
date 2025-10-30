@@ -60,13 +60,5 @@ class HomeViewModel: ObservableObject {
            self.workHours = tasks.filter { $0.status == "Completed" }
             .reduce(into: 0) { $0 + ($1.duration ?? 0) }
     }
-    
-    
-    func signOut(){
-        do {
-            try Auth.auth().signOut()
-        }catch{
-            print("Sign out error: \(error.localizedDescription)")
-        }
-    }
+
 }
