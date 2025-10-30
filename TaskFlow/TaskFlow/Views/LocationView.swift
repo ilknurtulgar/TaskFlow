@@ -6,12 +6,42 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct LocationView: View {
+    @StateObject private var viewModel = LocationViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20) {
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
+                .frame(height: 250)
+                .cornerRadius(16)
+                .shadow(radius: 4)
+            
+            List {
+                Section(header: Text("Durum")) {
+                    Text(viewModel.locationStatusText)
+                }
+                
+                Section(header: Text("Mevcut Konum")) {
+                    if let location = viewModel.currentLocation {
+                        Text("Latitude: \(location.latitude)")
+                        Text("Longitude: \(location.longitude)")
+                    } else {
+                        Text("Konum alınıyor...")
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .listStyle(InsetGroupedListStyle())
+        }
+        .navigationTitle("Konumum")
+        .onAppear {
+            viewModel.checkLocationPermission()
+        }
     }
 }
+
 
 #Preview {
     LocationView()
