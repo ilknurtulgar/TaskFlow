@@ -50,16 +50,18 @@ struct HomeView: View {
                 }
                 .padding(.top,8)
                 
-                NavigationLink(destination: NewTaskView()) {
-                    Label("New Task", systemImage: "plus.circle.fill")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
+                if model.userRole == "admin" {
+                    NavigationLink(destination: NewTaskView()) {
+                        Label("New Task", systemImage: "plus.circle.fill")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                    }
+                    .padding(.top, 16)
                 }
-                .padding(.top, 16)
                 
                 Spacer()
             }

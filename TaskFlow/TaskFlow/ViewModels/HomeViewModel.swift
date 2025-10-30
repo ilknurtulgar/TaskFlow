@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject {
     //    ]
     
     @Published var tasks: [Task] = []
-    @Published var userRole: String = "admin"
+    @Published var userRole: String = "user"
     @Published var tasksSummary: [TaskSummary] = []
     
     @Published var pendingCount: Int = 0
@@ -30,8 +30,36 @@ class HomeViewModel: ObservableObject {
     private var db = Firestore.firestore()
     
     init(){
+        fetchUserRole()
         fetchTasks()
     }
+    
+    func fetchUserRole() {
+        guard let email = Auth.auth().currentUser?.email else { return }
+
+        db.collection("users")
+            .whereField("email", isEqualTo: email)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching user role: \(error.localizedDescription)")
+                    return
+                }
+
+                if let doc = snapshot?.documents.first,
+                   let role = doc.data()["role"] as? String {
+                    DispatchQueue.main.async {
+                        self.userRole = role
+                        print("User role: \(role)")
+                    }
+                } else {
+                    print("Role not found")
+                }
+            }
+    }
+
+
+
+
     
     func fetchTasks(){
         db.collection("tasks").addSnapshotListener{querySnapshot,error in

@@ -8,8 +8,34 @@
 import SwiftUI
 
 struct NewTaskView: View {
+    @StateObject private var viewModel = NewTaskViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            Form{
+                Section(header: Text("Task Details")){
+                    TextField("Title", text: $viewModel.title)
+                    TextField("Description",text: $viewModel.description)
+                    TextField("SLA Duration",text: $viewModel.sla)
+                    TextField("Assigned to",text: $viewModel.assignedTo)
+                }
+                
+                Section{
+                    Button(action: {
+                        viewModel.saveTask()
+                    }){
+                        Label("Save Task", systemImage: "checkmark.circle.fill"
+                        ).frame(maxWidth: .infinity,alignment: .center)
+                    }
+                }
+            }
+            .navigationTitle("New Task")
+            .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert){
+                Button("Ok",role: .cancel){
+                    
+                }
+            }
+        }
     }
 }
 
