@@ -49,23 +49,19 @@ struct HomeView: View {
                     
                 }
                 .padding(.top,8)
-                Spacer()
                 
-                Button{
-                    model.showNewTaskView = true
-                }label: {
-                    Label("New Task",systemImage: "plus.circle.fill")
+                NavigationLink(destination: NewTaskView()) {
+                    Label("New Task", systemImage: "plus.circle.fill")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .backgroundColor(Color.blue)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(12)
                 }
-                .padding(.horizontal)
-                .sheet(isPresented: $model.showNewTaskView){
-                    NewTaskView()
-                }
+                .padding(.top, 16)
+                
+                Spacer()
             }
             .padding()
             .navigationBarBackButtonHidden(true)

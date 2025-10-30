@@ -14,5 +14,5 @@ struct Task: Identifiable, Codable {
     var description: String
     var status: String
     var assignedTo: String?
-    var dueDate: Date?
+    var duration: Int?
 }
