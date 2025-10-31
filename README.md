@@ -25,6 +25,8 @@ The project follows the **MVVM (Model-View-ViewModel)** pattern for better scala
 - PDFKit / UIKit (for sharing)
 - MVVM architecture
 - FileManager for local storage
+-  Firebase Auth
+-  Firebase Firestore
   
 ## 📸 Screenshots
 | Home View | Location View| Task Detail | Reports View | Settings View |
