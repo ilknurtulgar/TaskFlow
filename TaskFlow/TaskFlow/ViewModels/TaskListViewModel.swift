@@ -18,7 +18,7 @@ class TaskListViewModel: ObservableObject {
         guard let currentUserEmail = Auth.auth().currentUser?.email else {
             return
         }
-        
+        print("\(currentUserEmail)")
         db.collection("tasks")
             .whereField("assignedTo", isEqualTo: currentUserEmail)
             .addSnapshotListener{querySnapshot, error in
@@ -34,13 +34,22 @@ class TaskListViewModel: ObservableObject {
     }
     
     func colorForTask(_ task: Task) -> Color {
-        guard let duration = task.duration else {return .gray}
-        if duration < 24 {
+        guard let totalHours = task.duration,
+              let created = task.createdAt else {
+            return .gray
+        }
+
+        let elapsedSeconds = Date().timeIntervalSince(created)
+        let elapsedHours = elapsedSeconds / 3600.0
+        let remaining = Double(totalHours) - elapsedHours
+
+        if remaining <= 0 {
             return .red
-        }else if duration < 48 {
+        } else if remaining < 24 {
             return .orange
-        }else {
+        } else {
             return .green
         }
     }
+
 }

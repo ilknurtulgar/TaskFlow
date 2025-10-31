@@ -15,4 +15,5 @@ struct Task: Identifiable, Codable {
     var status: String
     var assignedTo: String?
     var duration: Int?
+    var createdAt: Date?
 }

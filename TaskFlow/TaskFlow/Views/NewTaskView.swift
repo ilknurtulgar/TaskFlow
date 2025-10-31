@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewTaskView: View {
     @StateObject private var viewModel = NewTaskViewModel()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView{
@@ -16,13 +17,20 @@ struct NewTaskView: View {
                 Section(header: Text("Task Details")){
                     TextField("Title", text: $viewModel.title)
                     TextField("Description",text: $viewModel.description)
-                    TextField("SLA Duration",text: $viewModel.sla)
+                    TextField("SLA Duration", value: $viewModel.sla, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
+
                     TextField("Assigned to",text: $viewModel.assignedTo)
                 }
                 
                 Section{
                     Button(action: {
-                        viewModel.saveTask()
+                        viewModel.saveTask{ success in
+                            if success {
+                                dismiss()
+                            }
+                        }
+                        
                     }){
                         Label("Save Task", systemImage: "checkmark.circle.fill"
                         ).frame(maxWidth: .infinity,alignment: .center)

@@ -12,21 +12,26 @@ struct HomeCard: View {
     let subtitle: String
     
     var body: some View {
-        HStack{
-            VStack(alignment: .leading){
-                Text(title)
-                    .font(.headline)
-                Text(subtitle)
-                    .font(.subheadline)
+        GeometryReader { geo in
+            HStack{
+                VStack(alignment: .leading){
+                    Text(title)
+                        .font(.headline)
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
                     .foregroundColor(.gray)
             }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
+            .padding()
+            .frame(width: geo.size.width, height: geo.size.height)
+            .background(Color(.systemGray6))
+            .cornerRadius(12)
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .frame(height: 100)
     }
 }
+
 

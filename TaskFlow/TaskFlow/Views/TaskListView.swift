@@ -22,7 +22,7 @@ struct TaskListView: View {
                         .padding(.top,50)
                 }else {
                     List(viewModel.tasks){task in
-                        NavigationLink(destination: TaskDetailView(task:task)) {
+                        NavigationLink(destination: TaskDetailView(task: task)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(task.title)

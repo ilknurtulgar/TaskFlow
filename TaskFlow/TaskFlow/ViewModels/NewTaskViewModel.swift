@@ -12,13 +12,13 @@ import FirebaseFirestore
 class NewTaskViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var description: String = ""
-    @Published var sla: String = ""
+    @Published var sla: Int = 0
     @Published var assignedTo: String = ""
     @Published var showAlert = false
     @Published var alertMessage = ""
     
-    func saveTask() {
-        guard !title.isEmpty, !description.isEmpty, !sla.isEmpty, !assignedTo.isEmpty else {
+    func saveTask(completion: @escaping (Bool) -> Void) {
+        guard !title.isEmpty, !description.isEmpty, sla > 0, !assignedTo.isEmpty else {
             alertMessage = "Please fill in all fields."
             showAlert = true
             return
@@ -28,7 +28,7 @@ class NewTaskViewModel: ObservableObject {
         let taskData: [String: Any] = [
             "title": title,
             "description": description,
-            "sla": sla,
+            "duration": sla,
             "assignedTo": assignedTo,
             "createdAt": Timestamp(),
             "status": "Pending"
@@ -41,7 +41,7 @@ class NewTaskViewModel: ObservableObject {
                 self.alertMessage = "Task successfully created!"
                 self.title = ""
                 self.description = ""
-                self.sla = ""
+                self.sla = 0
                 self.assignedTo = ""
             }
             self.showAlert = true
