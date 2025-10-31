@@ -27,7 +27,9 @@ The project follows the **MVVM (Model-View-ViewModel)** pattern for better scala
 - FileManager for local storage
   
 ## 📸 Screenshots
-
+| Home View | Location View| Task Detail | Reports View | Settings View |
+|--------------|--------------|---------------|---------------|---------------|
+|![Home View](screenshots/HomeView.png) | ![Location View](screenshots/LocationView.png) | ![Task Detail](screenshots/TaskDetailView.png) | ![Reports View](screenshots/ReportsView.png) | ![Settings View](screenshots/SettingsView.png) |
 
 ## 📦 Installation
 - Clone the repository:
