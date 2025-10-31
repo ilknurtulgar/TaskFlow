@@ -13,6 +13,9 @@ import FirebaseFirestore
 class TaskDetailViewModel: ObservableObject {
     @Published var task: Task
     @Published var showUpdateView = false
+    @Published var shareURL: URL?
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     private let db = Firestore.firestore()
     
@@ -44,6 +47,17 @@ class TaskDetailViewModel: ObservableObject {
             }
         }
     }
+    
+    func createPDF() {
+           if let pdfURL = PDFService.createPDF(for: task) {
+               alertMessage = "PDF maked:\n\(pdfURL.lastPathComponent)"
+               showAlert = true
+               print("PDF created at \(pdfURL)")
+           } else {
+               alertMessage = "PDF cant maked."
+               showAlert = true
+           }
+       }
     
     func slaColor() -> Color {
         guard let duration = task.duration,

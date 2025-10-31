@@ -32,7 +32,7 @@ struct HomeView: View {
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16){
                     NavigationLink(destination: TaskListView()){
-                        HomeCard(title: "Tasks",subtitle: "see all tasks")
+                        HomeCard(title: "Tasks",subtitle: "See all tasks")
                     }
                     
                     NavigationLink(destination: ReportsView()){
@@ -44,7 +44,7 @@ struct HomeView: View {
                     }
                     
                     NavigationLink(destination: SettingsView(homeViewModel:model)){
-                        HomeCard(title: "Settings",subtitle: "see all tasks")
+                        HomeCard(title: "Settings",subtitle: "See all tasks")
                     }
                     
                 }

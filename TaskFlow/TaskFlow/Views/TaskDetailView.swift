@@ -40,6 +40,18 @@ struct TaskDetailView: View {
                     .foregroundColor(viewModel.task.status == "Completed" ? .green : .orange)
             }
             Spacer()
+            HStack {
+                Spacer()
+                Button("Make the PDF") {
+                    viewModel.createPDF()
+                }
+                .buttonStyle(.borderedProminent)
+                Spacer()
+            }
+            .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
+                Button("OK", role: .cancel) { }
+            }
+
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
